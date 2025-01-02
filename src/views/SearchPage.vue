@@ -28,8 +28,8 @@
 import { ref, computed } from 'vue';
 import { debounce } from 'lodash';
 import axios from 'axios';
-import PlayerProfile from '@/components/PlayerProfile.vue'; // Player profile component
-import type { PlayerSearch } from '@/types/Search';
+import PlayerProfile from '../components/PlayerProfile.vue'; // Player profile component
+import type { PlayerSearch } from '../types/Search';
 
 // Search query and pagination
 const searchQuery = ref('');

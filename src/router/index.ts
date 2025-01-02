@@ -1,10 +1,10 @@
-import AboutPage from '@/views/AboutPage.vue'
-import HeroView from '@/views/HeroesPage.vue'
-import HomeView from '@/views/HomePage.vue'
-import ItemsView from '@/views/ItemsPage.vue'
-import MatchesView from '@/views/MatchesPage.vue'
-import SearchPage from '@/views/SearchPage.vue'
-import PlayerView from '@/views/SearchPage.vue'
+import AboutPage from '../views/AboutPage.vue'
+import HeroView from '../views/HeroesPage.vue'
+import HomeView from '../views/HomePage.vue'
+import ItemsView from '../views/ItemsPage.vue'
+import MatchesView from '../views/MatchesPage.vue'
+import SearchPage from '../views/SearchPage.vue'
+import PlayerView from '../views/SearchPage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [

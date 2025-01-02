@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import type { PlayerSearch } from '@/types/Search';
+import type { PlayerSearch } from '../types/Search';
 
 // Define the player prop with the correct type
 const player = defineProps<PlayerSearch>();
