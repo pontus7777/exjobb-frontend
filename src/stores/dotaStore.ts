@@ -1,5 +1,5 @@
 // src/stores/matchStore.ts
-import type { Match } from '@/types/Match'
+import type { Match } from '../types/Match'
 import { defineStore } from 'pinia'
 
 // Define the store to manage the match data

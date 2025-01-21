@@ -3,16 +3,27 @@
     <!-- Search Section -->
     <div class="search-header">
       <h2>Search for Players</h2>
-      <input v-model="searchQuery" type="text" placeholder="Search for players..." class="search-input"
-        @input="debouncedSearch" />
+      <input
+        v-model="searchQuery"
+        type="text"
+        placeholder="Search for players..."
+        class="search-input"
+        @input="debouncedSearch"
+      />
     </div>
 
     <!-- Player List -->
     <div class="player-list">
       <!-- Pass each property separately to PlayerProfile -->
-      <PlayerProfile v-for="player in paginatedPlayers" :key="player.account_id" :account_id="player.account_id"
-        :avatarfull="player.avatarfull" :personaname="player.personaname" :last_match_time="player.last_match_time"
-        :similarity="player.similarity" />
+      <PlayerProfile
+        v-for="player in paginatedPlayers"
+        :key="player.account_id"
+        :account_id="player.account_id"
+        :avatarfull="player.avatarfull"
+        :personaname="player.personaname"
+        :last_match_time="player.last_match_time"
+        :similarity="player.similarity"
+      />
     </div>
 
     <!-- Pagination -->
@@ -25,47 +36,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { debounce } from 'lodash';
-import axios from 'axios';
-import PlayerProfile from '../components/PlayerProfile.vue'; // Player profile component
-import type { PlayerSearch } from '../types/Search';
+import { ref, computed } from 'vue'
+import { debounce } from 'lodash'
+import axios from 'axios'
+import PlayerProfile from '../components/PlayerProfile.vue' // Player profile component
+import type { PlayerSearch } from '../types/Search'
 
 // Search query and pagination
-const searchQuery = ref('');
-const currentPage = ref(1);
-const players = ref<PlayerSearch[]>([]); // Players list
+const searchQuery = ref('')
+const currentPage = ref(1)
+const players = ref<PlayerSearch[]>([]) // Players list
 
 // Helper function to filter players based on the search query
 const filteredPlayers = computed(() => {
-  return players.value.filter(player =>
-    player.personaname.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-});
+  return players.value.filter((player) =>
+    player.personaname.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
+})
 
 // Pagination settings
-const playersPerPage = 10;
-const totalPages = computed(() => Math.ceil(filteredPlayers.value.length / playersPerPage));
+const playersPerPage = 10
+const totalPages = computed(() => Math.ceil(filteredPlayers.value.length / playersPerPage))
 const paginatedPlayers = computed(() => {
-  const start = (currentPage.value - 1) * playersPerPage;
-  const end = start + playersPerPage;
-  return filteredPlayers.value.slice(start, end);
-});
+  const start = (currentPage.value - 1) * playersPerPage
+  const end = start + playersPerPage
+  return filteredPlayers.value.slice(start, end)
+})
 
 // Debounce search to prevent excessive API calls
 const debouncedSearch = debounce(async () => {
   try {
     // Fetch data from backend
     const response = await axios.get('/api/v1/search', {
-      params: { q: searchQuery.value }
-    });
+      params: { q: searchQuery.value },
+    })
 
     // Update players list with the response data
-    players.value = response.data;
+    players.value = response.data
   } catch (error) {
-    console.error('Error searching players:', error);
+    console.error('Error searching players:', error)
   }
-}, 300);
+}, 300)
 </script>
 
 <style scoped>

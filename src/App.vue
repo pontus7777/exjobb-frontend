@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import SearchBar from '@/components/SearchBar.vue';
-import LoginButton from '@/components/LoginButton.vue';
-import LogoutButton from '@/components/LogoutButton.vue';
-import { RouterLink, RouterView } from 'vue-router';
+import { ref } from 'vue'
+import SearchBar from '../src/components/SearchBar.vue'
+import LoginButton from '../src/components/LoginButton.vue'
+import LogoutButton from '../src/components/LogoutButton.vue'
+import { RouterLink, RouterView } from 'vue-router'
 
 // Define the searchQuery in the parent component (App.vue)
-const searchQuery = ref('');
-const steamUser = ref(null); // To store user data
+const searchQuery = ref('')
+const steamUser = ref(null) // To store user data
 
 // Define the handleSearch method to handle updates from the SearchBar
 function handleSearch(query: string) {
-  searchQuery.value = query;
-  console.log("Search Query:", searchQuery.value);
+  searchQuery.value = query
+  console.log('Search Query:', searchQuery.value)
 }
 </script>
 

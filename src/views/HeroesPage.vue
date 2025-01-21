@@ -12,8 +12,8 @@
 <script setup lang="ts">
 // Import necessary components and APIs
 import { ref, onMounted } from 'vue';
-import type { Hero } from '@/types/Hero';
-import HeroCard from '@/components/HeroCard.vue';
+import type { Hero } from '../types/Hero';
+import HeroCard from '../components/HeroCard.vue';
 
 // Define the 'heroes' property using 'ref'
 const heroes = ref<Hero[]>([]);

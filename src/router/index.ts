@@ -4,7 +4,8 @@ import HomeView from '../views/HomePage.vue'
 import ItemsView from '../views/ItemsPage.vue'
 import MatchesView from '../views/MatchesPage.vue'
 import SearchPage from '../views/SearchPage.vue'
-import PlayerView from '../views/SearchPage.vue'
+import PlayerView from '../views/PlayersPage.vue'
+
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -18,7 +19,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.BASE_URL),
   routes,
 })
 
