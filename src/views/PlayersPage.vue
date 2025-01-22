@@ -1,6 +1,10 @@
 <template>
     <div>
-
+      <header>
+        <main>
+          
+        </main>
+      </header>
     </div>
 </template>
 

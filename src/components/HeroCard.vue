@@ -1,8 +1,8 @@
 <template>
   <div class="hero-card">
-    <img :src="hero.img" :alt="hero.name" />
+    <img :src="hero.img" :alt="hero.localized_name" />
     <h3>{{ hero.localized_name }}</h3>
-    <p>{{ hero.primary_attr }}</p>
+    <img :src="hero.primary_attr" />
     <p>{{ hero.roles }}</p>
   </div>
 </template>
