@@ -2,7 +2,7 @@
   <div class="hero-card">
     <img :src="hero.img" :alt="hero.localized_name" />
     <h3>{{ hero.localized_name }}</h3>
-    <img :src="hero.primary_attr" />
+    <img :src="hero.primary_attr" :height="50" :width="50" />
     <p>{{ hero.roles }}</p>
   </div>
 </template>
