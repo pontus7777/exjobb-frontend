@@ -4,8 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "start": "npm run build && vite preview",
     "dev": "vite",
-    "start": "vite preview",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
