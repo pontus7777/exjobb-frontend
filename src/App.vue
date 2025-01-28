@@ -1,19 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import SearchBar from '../src/components/SearchBar.vue'
 import LoginButton from '../src/components/LoginButton.vue'
 import LogoutButton from '../src/components/LogoutButton.vue'
 import { RouterLink, RouterView } from 'vue-router'
 
 // Define the searchQuery in the parent component (App.vue)
-const searchQuery = ref('')
 const steamUser = ref(null) // To store user data
 
 // Define the handleSearch method to handle updates from the SearchBar
-function handleSearch(query: string) {
-  searchQuery.value = query
-  console.log('Search Query:', searchQuery.value)
-}
 </script>
 
 <template>
@@ -24,23 +18,19 @@ function handleSearch(query: string) {
           <RouterLink to="/" class="nav-link">Home</RouterLink>
           <RouterLink to="/heroes" class="nav-link">Heroes</RouterLink>
           <RouterLink to="/players" class="nav-link">Players</RouterLink>
+          <RouterLink to="/search" class="nav-link">Search</RouterLink>
           <RouterLink to="/items" class="nav-link">Items</RouterLink>
           <RouterLink to="/matches" class="nav-link">Matches</RouterLink>
           <RouterLink to="/about" class="nav-link">About</RouterLink>
-        </nav>
-
-        <!-- Include the SearchBar component and bind the search query update event -->
-        <SearchBar @update:searchQuery="handleSearch" />
-        <div>
           <LoginButton v-if="!steamUser" />
           <LogoutButton v-else />
-        </div>
+        </nav>
       </div>
     </header>
 
     <!-- The content area where routes will be displayed -->
     <main>
-      <RouterView :searchQuery="searchQuery" />
+      <RouterView />
     </main>
   </div>
 </template>

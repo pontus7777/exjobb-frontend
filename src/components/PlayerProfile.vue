@@ -10,10 +10,10 @@
 </template>
 
 <script setup lang="ts">
-import type { PlayerSearch } from '../types/Search'
+import type { PlayerSearchResult } from '../types/PlayerSearchResult'
 
 // Define the player prop with the correct type
-const player = defineProps<PlayerSearch>()
+const player = defineProps<PlayerSearchResult>()
 
 // Helper function to format the last match time
 const formatLastMatchTime = (time: string) => {

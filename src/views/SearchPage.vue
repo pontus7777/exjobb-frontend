@@ -1,123 +1,61 @@
 <template>
   <div class="search-page">
-    <!-- Search Section -->
-    <div class="search-header">
-      <h2>Search for Players</h2>
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Search for players..."
-        class="search-input"
-        @input="debouncedSearch"
-      />
-    </div>
-
-    <!-- Player List -->
-    <div class="player-list">
-      <!-- Pass each property separately to PlayerProfile -->
-      <PlayerProfile
-        v-for="player in paginatedPlayers"
-        :key="player.account_id"
-        :account_id="player.account_id"
-        :avatarfull="player.avatarfull"
-        :personaname="player.personaname"
-        :last_match_time="player.last_match_time"
-        :similarity="player.similarity"
-      />
-    </div>
-
-    <!-- Pagination -->
-    <div class="pagination">
-      <button @click="currentPage--" :disabled="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }}</span>
-      <button @click="currentPage++" :disabled="currentPage >= totalPages">Next</button>
-    </div>
+    <SearchBar @search="handleSearch" />
+    <PlayerList :players="players" />
+    <PaginationList
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :playersCount="playersCount"
+      @page-change="handlePageChange"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { debounce } from 'lodash'
 import axios from 'axios'
-import PlayerProfile from '../components/PlayerProfile.vue' // Player profile component
-import type { PlayerSearch } from '../types/Search'
+import SearchBar from '../components/SearchBar.vue'
+import PlayerList from '../components/PlayerList.vue'
+import { PlayerSearchResult } from '../types/PlayerSearchResult'
+import PaginationList from '../components/PaginationList.vue'
 
-// Search query and pagination
-const searchQuery = ref('')
+const players = ref<PlayerSearchResult[]>([])
+const query = ref('')
 const currentPage = ref(1)
-const players = ref<PlayerSearch[]>([]) // Players list
+const pageSize = 10
 
-// Helper function to filter players based on the search query
-const filteredPlayers = computed(() => {
-  return players.value.filter((player) =>
-    player.personaname.toLowerCase().includes(searchQuery.value.toLowerCase()),
-  )
-})
+// Get the total count of players to enable pagination logic
+const playersCount = computed(() => players.value.length)
 
-// Pagination settings
-const playersPerPage = 10
-const totalPages = computed(() => Math.ceil(filteredPlayers.value.length / playersPerPage))
-const paginatedPlayers = computed(() => {
-  const start = (currentPage.value - 1) * playersPerPage
-  const end = start + playersPerPage
-  return filteredPlayers.value.slice(start, end)
-})
-
-// Debounce search to prevent excessive API calls
-const debouncedSearch = debounce(async () => {
+// Fetch players based on the query
+const fetchPlayers = async (searchQuery: string) => {
   try {
-    // Fetch data from backend
-    const response = await axios.get('/api/v1/search', {
-      params: { q: searchQuery.value },
-    })
-
-    // Update players list with the response data
-    players.value = response.data
+    const response = await axios.get(
+      `http://localhost:5000/api/v1/search?q=${searchQuery}&page=${currentPage.value}`,
+    )
+    players.value = response.data // Assign fetched data to players
   } catch (error) {
-    console.error('Error searching players:', error)
+    console.error('Error fetching players:', error) // Error handling
   }
-}, 300)
+}
+
+// Handle the search action from SearchInput component
+const handleSearch = (searchQuery: string) => {
+  query.value = searchQuery
+  fetchPlayers(searchQuery) // Fetch players for the search query
+}
+
+// Handle page changes (pagination)
+const handlePageChange = (newPage: number) => {
+  currentPage.value = newPage
+  fetchPlayers(query.value) // Fetch new page of players based on current query
+}
 </script>
 
 <style scoped>
 .search-page {
   padding: 16px;
-}
-
-.search-header {
-  margin-bottom: 16px;
-}
-
-.search-input {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.player-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.pagination button {
-  padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  cursor: pointer;
-}
-
-.pagination button:disabled {
-  cursor: not-allowed;
-  background-color: #ddd;
+  max-width: 800px; /* You can adjust this value based on your design */
+  margin: 0 auto; /* Centers the search page */
 }
 </style>
