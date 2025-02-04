@@ -4,7 +4,7 @@ import HomeView from '../views/HomePage.vue'
 import ItemsView from '../views/ItemsPage.vue'
 import MatchesView from '../views/MatchesPage.vue'
 import SearchPage from '../views/SearchPage.vue'
-import PlayerView from '../views/PlayersPage.vue'
+import PlayerView from '../views/TopPlayersPage.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
 

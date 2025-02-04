@@ -14,9 +14,11 @@
 import { ref, onMounted } from 'vue'
 import type { Hero } from '../types/Hero'
 import HeroCard from '../components/HeroCard.vue'
-  
+
 // Define the 'heroes' property using 'ref'
 const heroes = ref<Hero[]>([])
+
+const cdnAddress = 'https://cdn.cloudflare.steamstatic.com'
 
 // type HeroRoles = 'Carry' | 'Support' | 'Nuker' | 'Initiator' | 'Durable' | 'Disabler' | 'Jungler' | 'Pusher'
 
@@ -27,10 +29,10 @@ const fetchHeroes = async () => {
     const data = await response.json()
 
     const primaryAttrImages: { [key: string]: string } = {
-      str: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png',
-      agi: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png',
-      int: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png',
-      all: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_universal.png',
+      str: `${cdnAddress}/apps/dota2/images/dota_react/icons/hero_strength.png`,
+      agi: `${cdnAddress}/apps/dota2/images/dota_react/icons/hero_agility.png`,
+      int: `${cdnAddress}/apps/dota2/images/dota_react/icons/hero_intelligence.png`,
+      all: `${cdnAddress}/apps/dota2/images/dota_react/icons/hero_universal.png`,
     }
 
     // Map API response to match the structure needed for HeroCard
@@ -39,7 +41,7 @@ const fetchHeroes = async () => {
         id: hero.id,
         name: hero.name, // The internal name used for image URL and other purposes
         localized_name: hero.localized_name, // The localized name for display
-        img: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/heroes/${hero.name.replace('npc_dota_hero_', '')}_full.png`, // Path to the hero's image (assuming the image name is the internal 'name')
+        img: `${cdnAddress}/apps/dota2/images/heroes/${hero.name.replace('npc_dota_hero_', '')}_full.png`, // Path to the hero's image (assuming the image name is the internal 'name')
         primary_attr: primaryAttrImages[hero.primary_attr] || '', // Mapping primary_attr from API response
         attack_type: hero.attack_type, // Mapping attack_type from API response
         roles: hero.roles, // Mapping roles from API response
