@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import { PlayerSearchResult } from '../types/PlayerSearchResult'
+import type { PlayerSearchResult } from '../types/PlayerSearchResult'
 
 defineProps<{
   players: PlayerSearchResult[]

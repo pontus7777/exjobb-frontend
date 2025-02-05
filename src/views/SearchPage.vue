@@ -16,7 +16,7 @@ import { ref, computed } from 'vue'
 import axios from 'axios'
 import SearchBar from '../components/SearchBar.vue'
 import PlayerList from '../components/PlayerList.vue'
-import { PlayerSearchResult } from '../types/PlayerSearchResult'
+import type { PlayerSearchResult } from '../types/PlayerSearchResult'
 import PaginationList from '../components/PaginationList.vue'
 
 const players = ref<PlayerSearchResult[]>([])
