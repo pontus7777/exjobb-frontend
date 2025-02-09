@@ -18,14 +18,14 @@ import HeroCard from '../components/HeroCard.vue'
 // Define the 'heroes' property using 'ref'
 const heroes = ref<Hero[]>([])
 const cdnAddress = 'https://cdn.cloudflare.steamstatic.com'
-const api = import.meta.env.VITE_API_URL
+// const api = import.meta.env.VITE_API_URL
 
 // type HeroRoles = 'Carry' | 'Support' | 'Nuker' | 'Initiator' | 'Durable' | 'Disabler' | 'Jungler' | 'Pusher'
 
 // Fetch heroes data from an API when the component is mounted
 const fetchHeroes = async () => {
   try {
-    const response = await fetch(`${api}/api/v1/heroes`) // Replace with your actual API URL
+    const response = await fetch(`https://dota2-backend-5d8604e169f7.herokuapp.com/api/v1/heroes`) // Replace with your actual API URL
     const data = await response.json()
 
     const primaryAttrImages: { [key: string]: string } = {
