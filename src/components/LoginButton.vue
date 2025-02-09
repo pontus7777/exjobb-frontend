@@ -3,8 +3,10 @@
 </template>
 
 <script setup lang="ts">
+const api = import.meta.env.VITE_API_URL
+
 function loginWithSteam() {
-  window.location.href = 'http://localhost:5000/api/v1/steam/auth' // Redirect to backend Steam login route
+  window.location.href = `${api}/api/v1/steam/auth` // Redirect to backend Steam login route
 }
 </script>
 

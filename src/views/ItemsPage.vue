@@ -17,10 +17,11 @@ import ItemGroup from '../components/ItemGroup.vue'
 const groupedItems = ref<Record<string, DotaItem[]>>({})
 
 const cdnAddress = 'https://cdn.cloudflare.steamstatic.com'
+const api = import.meta.env.VITE_API_URL
 
 const fetchItems = async () => {
   try {
-    const response = await fetch('http://localhost:5000/api/v1/constants/items')
+    const response = await fetch(`${api}/api/v1/constants/items`)
     const data: Record<string, DotaItem> = await response.json()
 
     const groupedItemsTemp: Record<string, DotaItem[]> = {}

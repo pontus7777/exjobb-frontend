@@ -24,6 +24,7 @@ const query = ref('')
 const currentPage = ref(1)
 const pageSize = 10
 
+const api = import.meta.env.VITE_API_URL
 // Get the total count of players to enable pagination logic
 const playersCount = computed(() => players.value.length)
 
@@ -31,7 +32,7 @@ const playersCount = computed(() => players.value.length)
 const fetchPlayers = async (searchQuery: string) => {
   try {
     const response = await axios.get(
-      `http://localhost:5000/api/v1/search?q=${searchQuery}&page=${currentPage.value}`,
+      `${api}/api/v1/search?q=${searchQuery}&page=${currentPage.value}`,
     )
     players.value = response.data // Assign fetched data to players
   } catch (error) {

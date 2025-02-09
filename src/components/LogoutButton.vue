@@ -3,8 +3,10 @@
 </template>
 
 <script setup lang="ts">
+const api = import.meta.env.VITE_API_URL
+
 function logout() {
-  window.location.href = 'http://localhost:5000/api/v1/steam/logout' // Redirect to backend logout route
+  window.location.href = `${api}/api/v1/steam/logout` // Redirect to backend logout route
 }
 </script>
 
